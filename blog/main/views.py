@@ -1,20 +1,14 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.core.paginator import Page
 # Create your views here.
 def main(request):
     '''
     Render the main page
     '''
-    html ='''
-    <!doctype html>
-    <html>
-    <head>
-    <title> My Blog </title>
-    <meta charset='utf-8'>
-    </head>
-    <body>
-        這是HTML版本的Hello World!
-    </body>
-    </html>
+    context = {'like':'Django is excellent'}
+    return render(request, 'main/main.html', context)
+def about(request):
     '''
-    return HttpResponse(html)
+    Render the about page
+    '''
+    return render(request,'main/about.html')
