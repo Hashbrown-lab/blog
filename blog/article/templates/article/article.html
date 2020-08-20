@@ -7,7 +7,11 @@
 {% block content %}
 <p><a class="btn" href="{% url 'article:articleCreate' %}">New Article</a></p>
 {% for article, comments in articles.items %}
-	<h3><a href="{% url 'article:articleRead' article.id %}">{{ article.title }}</a></h3>
+	<h3 class="inlineBlock"><a href="{% url 'article:articleRead' article.id %}">{{ article.title }}</a></h3>
+	<form class="inlineBlock" method="post" action="{% url 'article:articleDelete' article.id %}">
+	{% csrf_token %}
+	<input class="btn deleteConfirm" type="submit" value="Delete">
+	</form>
 	<p>Publish Time: {{article.pubDateTime|date:'Y-m-d H:i' }}</p>
 	<div class="articleContent">{{ article.content|linebreaks|truncatechars_html:30 }}</div>
 	{% for comment in comments %}
@@ -19,4 +23,7 @@
 	{% endfor %}
 	<hr>
 {% endfor %}
+{% endblock %}
+{% block script %}
+<script src="{% static 'main/js/deleteConfirm.js' %}"></script>
 {% endblock %}

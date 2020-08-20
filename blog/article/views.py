@@ -68,4 +68,19 @@ def articleUpdate(request, articleId):
     articleForm.save()
     messages.success(request, 'Edited Successfully')
     return redirect('article:articleRead', articleId=articleId)
+
+def articleDelete(request, articleId):
+    '''
+    Delete the article instance:
+        1. Render the article page if the method is GET
+        2. Get the article to delete; render to 404 if not found 
+    '''
+    if request.method == 'GET':
+        return redirect('article:article')
+    
+    #POST
+    article = get_object_or_404(Article, id=articleId)
+    article.delete()
+    messages.success(request, 'Deleted Successfully')
+    return redirect('article:article')
     
