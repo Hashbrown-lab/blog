@@ -4,11 +4,15 @@
 	<head>
 	<title>Blog</title>
 	<meta charset="utf-8">
-	<link rel="stylesheet" href="{% static 'main/css/main.css' %}">
+	<link rel="stylesheet" href="/static/main/css/main.css">
+	{% block css %}{% endblock %}
 	</head>
 	<body>
 	{% include 'main/menu.html' %}
 	<h2>Blog -- {% block heading %}{% endblock %}</h2>
+	{% for message in messages %}
+		<p class="{{ message.tags }}">{{ message }}</p>
+	{% endfor %}
 	{% block content %}{% endblock %}
 	</body>
 </html>

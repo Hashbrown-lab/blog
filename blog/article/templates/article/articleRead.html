@@ -1,0 +1,19 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'article/css/article.css' %}">
+{% endblock %}
+{% block heading %}Read Article{% endblock %}
+{% block content %}
+<h3 class="inlineBlock">{{ article.title }}</h3>
+<a class="btn inlineBlock" href="{% url 'article:articleUpdate' article.id %}">Edit</a>
+<p>Publish Time: {{article.pubDateTime|date:'Y-m-d H:i' }}</p>
+<div class="articleContent">{{ article.content|linebreaks }}</div>
+{% for comment in comments %}
+	<div class="commentDiv">
+		<span class="comment">{{ comment.content }}</span>
+		<br>
+		<span class="commentTime">{{ comment.pubDateTime|date:'Y-m-d H:i' }}</span>
+	</div>
+{% endfor %}
+{% endblock %}
